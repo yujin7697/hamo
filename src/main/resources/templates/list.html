@@ -249,18 +249,21 @@
             <div th:each="data ,i: ${dataList}">
                 <div class="board-item">
 
+
                     <div class="idbox">
                         <div>
                             <a th:href="'/whopage/' + ${data.board.number}" style="display:flex; align-items: center;font-size: 0.8rem;margin-right : 10px;justify-content: center; text-decoration: none; color : black;">
                                 <img th:src="${data.profile}" style="width:30px;height:30px;border-radius:50%;margin-right : 10px;" />
-                                <div id = board_id th:text="${data.board.nickname}">id</div>
+                                <div id="board_id" th:text="${data.board.nickname}">id</div>
                             </a>|
-                            <div class="date" th:text="${data.board.date}">date</div>
+                            <div class="date" th:text="${#temporals.format(data.board.date, 'yyyy년 MM월 dd일 HH:mm:ss')}">date</div>
                         </div>
                         <div class="hits-box">조회
                             <div class="hits" th:text="${data.board.hits}">hits</div>
                         </div>
                     </div>
+
+
 
 
                     <a th:href="'/read/' + ${data.board.number}">
@@ -296,7 +299,7 @@
             <!--            내정보-->
             <div class="myInfo" style="height : 60px;margin-top : 15px;">
                 <img th:src="${#authentication.getPrincipal().getUser().getProfile()}" style="width:40px;height:40px;border-radius:50%;margin-left : 10px;margin-right : 10px;" />
-                <span th:text="${#authentication.getPrincipal().getUser().getEmail()}">my email</span>
+                <span th:text="${#authentication.getPrincipal().getUser().getNickname()}">my email</span>
             </div>
 
             <!--            친구정보-->
@@ -319,8 +322,18 @@
 
 </body>
 
+
+<!-- Moment.js -->
+<script src="https://momentjs.com/downloads/moment.js"></script>
+
 <!-- 자체 작성한 JavaScript 코드 -->
 <script>
+
+    function formatDateTime(rawDate) {
+        const formattedDate = moment(rawDate).format('YYYY년 MM월 DD일 HH:mm:ss');
+        return formattedDate;
+    }
+
     // 서버에서 알림 데이터를 가져와 동적으로 렌더링하는 함수
     function loadNotifications() {
         $.ajax({
@@ -337,7 +350,7 @@
                         <div class="notification">
                             <p>${notification.replynickname}</p>
                             <p>${notification.message}</p>
-                            <p>${notification.rdate}</p>
+                            <p>${formatDateTime(notification.rdate)}</p>
                         </div>
                     `;
                     notificationContainer.append(notificationElement);
@@ -348,6 +361,7 @@
             }
         });
     }
+
 
     // 페이지가 로드될 때 알림을 가져와서 렌더링합니다.
     $(document).ready(function() {
@@ -570,7 +584,7 @@ const add_product_btn_el = document.querySelector('.add_product_btn');
 
             const notificationSpan = document.querySelector('.notification .counter');
             if (notificationSpan) {
-              notificationSpan.style.display = 'block';
+              notificationSpan.style.display =           'block';
             }
    };
 

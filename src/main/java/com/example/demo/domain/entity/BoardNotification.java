@@ -26,11 +26,8 @@ public class BoardNotification {
     @Column
     private String replynickname;
     @Column
-
     private String message;
     private boolean isread;
     private LocalDateTime rdate;
-
-
 
 }

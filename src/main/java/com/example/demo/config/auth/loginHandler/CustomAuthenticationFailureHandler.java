@@ -15,10 +15,10 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
 
-		System.out.println("로로그그인인 실실패패 : " + exception);
-		System.out.println("로로그그인인 실실패패 MSG : " + exception.getMessage());
+		System.out.println("로그인 실패 : " + exception);
+		System.out.println("로그인 실패 message : " + exception.getMessage());
 		
-		request.setAttribute("msg", exception.getMessage());
+		request.setAttribute("message", exception.getMessage());
 		
 		response.sendRedirect(request.getContextPath() + "/login?error=" + exception.getMessage());
 	}

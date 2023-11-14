@@ -51,6 +51,7 @@ public class BoardService {
 
     @Transactional(rollbackFor = SQLException.class)
     public void addBoard(BoardDto dto) throws IOException {
+
         System.out.println("upload File Count : " +dto.getFiles().length);
 
         Board board = new Board();
