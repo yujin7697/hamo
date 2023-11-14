@@ -29,6 +29,9 @@ public class BoardNotificationController {
         System.out.println("writenickname : " + writenickname);
         List<BoardNotification> list =  notificationRepository.findAllByNickname(writenickname);
 
+        Long countNoti = notificationRepository.countByNickname(writenickname);
+        System.out.println("countNoti : " + countNoti);
+
         //읽음 처리
         for(BoardNotification boardNotification : list) {
             System.out.println(boardNotification);

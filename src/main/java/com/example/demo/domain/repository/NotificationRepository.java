@@ -15,5 +15,7 @@ public interface NotificationRepository extends JpaRepository<BoardNotification,
     @Query("SELECT b FROM BoardNotification b WHERE writenickname = :writenickname and isread=0 ORDER BY nid DESC")
     List<BoardNotification> findAllByNickname(@Param("writenickname") String writenickname);
 
+    @Query("SELECT COUNT(*) AS unreadCount FROM BoardNotification WHERE writenickname = :writenickname AND isread = 0")
+    Long countByNickname(@Param("writenickname") String writenickname);
 
 }
