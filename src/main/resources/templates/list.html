@@ -103,7 +103,7 @@
                         <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
                     </svg>알림
                     <span id="notificationBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                         0
+                        <span th:text="${countNoti}"></span>
                         <span class="visually-hidden">unread messages</span>
                     </span>
                 </button>
@@ -330,36 +330,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-oC5D5N2ZlHv5r5zI3/81s6V5HQHZxTUn1l7/2eXIt2Q01lQQDKqOvSDR8RShm6ZH" crossorigin="anonymous">
 
 
-<script>
-    // 알림 개수를 동적으로 업데이트하는 함수
-    function updateNotificationCount(count) {
-        // 알림 뱃지의 DOM 요소를 가져옴
-        var badgeElement = document.getElementById('notificationBadge');
-
-        // 개수가 0보다 크면 뱃지에 표시, 아니면 숨김
-        if (count > 0) {
-            badgeElement.style.display = 'inline-block';
-            badgeElement.innerHTML = count > 99 ? '99+' : count;
-        } else {
-            badgeElement.style.display = 'none';
-        }
-    }
-
-    // 예시: 5초마다 알림 개수를 랜덤으로 업데이트
-    setInterval(function() {
-        var randomCount = Math.floor(Math.random() * 10); // 0부터 9까지의 랜덤한 수
-        updateNotificationCount(randomCount);
-    }, 5000); // 5초마다 업데이트
-</script>
-
-
 <!-- 자체 작성한 JavaScript 코드 -->
 <script>
 
     function formatDateTime(rawDate) {
-        const formattedDate = moment(rawDate).format('YYYY년 MM월 DD일 HH:mm:ss');
+        const formattedDate = moment(rawDate, 'YYYY-MM-DDTHH:mm:ss').format('YYYY년 MM월 DD일 HH:mm:ss');
         return formattedDate;
     }
+
 
     // 서버에서 알림 데이터를 가져와 동적으로 렌더링하는 함수
     function loadNotifications() {

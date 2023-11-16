@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ public class BoardNotificationController {
     private NotificationRepository notificationRepository;
 
     @GetMapping(value = "/read",produces = MediaType.APPLICATION_JSON_VALUE)
-    public  List<BoardNotification> f1(Authentication authentication){
+    public  List<BoardNotification> f1(Authentication authentication, Model model){
         PrincipalDetails principalDetails = (PrincipalDetails)authentication.getPrincipal();
         String writenickname = principalDetails.getNickname();
         System.out.println("writenickname : " + writenickname);
@@ -38,6 +39,9 @@ public class BoardNotificationController {
             boardNotification.setIsread(true);  //읽음처리
             notificationRepository.save(boardNotification);//저장
         }
+
+        model.addAttribute("countNoti",countNoti);
+
         return list;
 
     }
