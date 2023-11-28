@@ -13,7 +13,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class BoardNotificationSocketConfigure implements WebSocketConfigurer {
 
     private final BoardNotificationSocketHandler webSocketHandler;
-//sdfksfsdjfs
+//sjfshfsdfjowerjiewkrfjdsjfkjfekrejir
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(webSocketHandler, "/socket").setAllowedOrigins("*");
